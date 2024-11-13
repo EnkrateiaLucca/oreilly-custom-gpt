@@ -17,3 +17,4 @@
     1. Ensure all citations in a text have a bibliography entry and are formatted according to the correct style. Could have used that for my dissertation writing days.
 16. Picture or screenshot from a pdf plot and ask for some analysis
 17. Creating Custom GPTs for researching specific fields
+![](2024-11-13-21-38-17.png)
