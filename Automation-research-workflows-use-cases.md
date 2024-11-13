@@ -18,3 +18,6 @@
 16. Picture or screenshot from a pdf plot and ask for some analysis
 17. Creating Custom GPTs for researching specific fields
 ![](2024-11-13-21-38-17.png)
+
+
+![](2024-11-13-21-40-46.png)
