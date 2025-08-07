@@ -1,0 +1,636 @@
+1 / 132
+
+Table of Contents
+1. Introduction to the course & learning objectives
+
+2 / 132
+
+Table of Contents
+1. Introduction to the course & learning objectives
+2. Custom GPT Basics
+
+3 / 132
+
+Table of Contents
+1. Introduction to the course & learning objectives
+2. Custom GPT Basics
+3. Application of Custom GPTs
+
+4 / 132
+
+Table of Contents
+1. Introduction to the course & learning objectives
+2. Custom GPT Basics
+3. Application of Custom GPTs
+4. Introduction to Claude & Artifacts
+
+5 / 132
+
+Table of Contents
+1. Introduction to the course & learning objectives
+2. Custom GPT Basics
+3. Application of Custom GPTs
+4. Introduction to Claude & Artifacts
+5. Application of Claude & Artifacts
+
+6 / 132
+
+Introduction & Learning Objectives
+
+7 / 132
+
+In this course you will
+
+8 / 132
+
+In this course you will
+Learn the basics of ChatGPT & Custom GPTs
+
+9 / 132
+
+In this course you will
+Learn the basics of ChatGPT & Custom GPTs
+Learn how to build useful Custom GPTs for automating tasks and
+workflows
+
+10 / 132
+
+In this course you will
+Learn the basics of ChatGPT & Custom GPTs
+Learn how to build useful Custom GPTs for automating tasks and
+workflows
+Learn the basics of Claude & Artifacts
+
+11 / 132
+
+In this course you will
+Learn the basics of ChatGPT & Custom GPTs
+Learn how to build useful Custom GPTs for automating tasks and
+workflows
+Learn the basics of Claude & Artifacts
+Learn how to use Claude, Artifacts and MCPs to build useful tools and
+workflows
+
+12 / 132
+
+Custom GPT Basics
+
+13 / 132
+
+What & Why Custom GPTs?
+🛠️ Customizable
+
+14 / 132
+
+What & Why Custom GPTs?
+🛠️ Customizable
+📦 Specialized & shareable packages
+
+15 / 132
+
+What & Why Custom GPTs?
+🛠️ Customizable
+📦 Specialized & shareable packages
+🔗 Connect to services
+
+16 / 132
+
+What & Why Custom GPTs?
+🛠️ Customizable
+📦 Specialized & shareable packages
+🔗 Connect to services
+💡 Use cases
+
+17 / 132
+
+18 / 132
+
+Translators of Complexity
+Tools
+
+Agents
+
+Collaborators
+
+19 / 132
+
+Translators of Complexity
+Tools
+
+Agents
+
+Collaborators
+
+20 / 132
+
+Translators of Complexity
+Tools
+
+Agents
+
+Collaborators
+
+21 / 132
+
+Translators of Complexity
+Tools
+
+Agents
+
+Collaborators
+
+22 / 132
+
+Translators of Complexity
+Tools
+
+Agents
+
+Collaborators
+
+23 / 132
+
+Building our First Custom GPT
+
+24 / 132
+
+Custom GPT Interface Walkthrough (recap)
+
+25 / 132
+
+26 / 132
+
+27 / 132
+
+28 / 132
+
+29 / 132
+
+30 / 132
+
+31 / 132
+
+32 / 132
+
+33 / 132
+
+34 / 132
+
+35 / 132
+
+36 / 132
+
+37 / 132
+
+38 / 132
+
+39 / 132
+
+40 / 132
+
+41 / 132
+
+42 / 132
+
+43 / 132
+
+44 / 132
+
+45 / 132
+
+46 / 132
+
+47 / 132
+
+48 / 132
+
+49 / 132
+
+50 / 132
+
+51 / 132
+
+52 / 132
+
+53 / 132
+
+54 / 132
+
+55 / 132
+
+56 / 132
+
+57 / 132
+
+58 / 132
+
+59 / 132
+
+60 / 132
+
+61 / 132
+
+62 / 132
+
+63 / 132
+
+64 / 132
+
+65 / 132
+
+66 / 132
+
+67 / 132
+
+68 / 132
+
+69 / 132
+
+70 / 132
+
+71 / 132
+
+72 / 132
+
+73 / 132
+
+74 / 132
+
+75 / 132
+
+Demo: Building specialized GPT tutors
+
+76 / 132
+
+Demo: Building a Custom GPT to Extract Data
+from PDFs
+
+77 / 132
+
+Introduction to Claude & Artifacts
+
+78 / 132
+
+Agenda
+1. What is Claude?
+
+79 / 132
+
+Agenda
+1. What is Claude?
+2. Capabilities
+
+80 / 132
+
+Agenda
+1. What is Claude?
+2. Capabilities
+3. Model Options
+
+81 / 132
+
+Agenda
+1. What is Claude?
+2. Capabilities
+3. Model Options
+4. What is Artifacts?
+
+82 / 132
+
+Agenda
+1. What is Claude?
+2. Capabilities
+3. Model Options
+4. What is Artifacts?
+5. Use Cases
+
+83 / 132
+
+What is Claude?
+
+84 / 132
+
+Capabilities
+Claude with the chat interface can help with:
+Text and code generation
+
+85 / 132
+
+Capabilities
+Claude with the chat interface can help with:
+Interacting with documents
+
+No image generation on the standard interface
+
+86 / 132
+
+Ok, cool...but most of these things you get
+with ChatGPT...so what's special about
+Claude?
+
+87 / 132
+
+Claude Desktop + MCPs (connectors)
+
+88 / 132
+
+89 / 132
+
+Artifacts
+
+90 / 132
+
+91 / 132
+
+What is Artifacts?
+
+92 / 132
+
+What is Artifacts?
+Dedicated windows displaying substantial, standalone content
+
+93 / 132
+
+What is Artifacts?
+Dedicated windows displaying substantial, standalone content
+Interactive, editable outputs separate from the main conversation
+
+94 / 132
+
+What is Artifacts?
+Dedicated windows displaying substantial, standalone content
+Interactive, editable outputs separate from the main conversation
+Represent Claude's evolution into a collaborative work environment
+
+95 / 132
+
+Characteristics of Artifacts
+Significant and self-contained (typically over 15 lines)
+
+96 / 132
+
+Characteristics of Artifacts
+Significant and self-contained (typically over 15 lines)
+Content likely to be edited, iterated on, or reused
+
+97 / 132
+
+Characteristics of Artifacts
+Significant and self-contained (typically over 15 lines)
+Content likely to be edited, iterated on, or reused
+Complex pieces that stand on their own
+
+98 / 132
+
+Characteristics of Artifacts
+Significant and self-contained (typically over 15 lines)
+Content likely to be edited, iterated on, or reused
+Complex pieces that stand on their own
+Intended for reference or future use
+
+99 / 132
+
+Characteristics of Artifacts
+Significant and self-contained (typically over 15 lines)
+Content likely to be edited, iterated on, or reused
+Complex pieces that stand on their own
+Intended for reference or future use
+You can easily build AI powered (Claude) shareable apps!
+
+100 / 132
+
+Types of Artifact Content
+
+Generated with Artifacts
+101 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+
+102 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+Code snippets
+
+103 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+Code snippets
+Websites (single page HTML)
+
+104 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+Code snippets
+Websites (single page HTML)
+Scalable Vector Graphics (SVG) images
+
+105 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+Code snippets
+Websites (single page HTML)
+Scalable Vector Graphics (SVG) images
+Diagrams and flowcharts
+
+106 / 132
+
+Types of Artifact Content
+Documents (Markdown or Plain Text)
+Code snippets
+Websites (single page HTML)
+Scalable Vector Graphics (SVG) images
+Diagrams and flowcharts
+Interactive React components (means you can prototype real apps)
+
+107 / 132
+
+Claude Demo
+
+108 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+
+109 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+2. Request content that typically results in an Artifact
+
+110 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+2. Request content that typically results in an Artifact
+3. Artifact window appears on the right side of the chat interface
+
+111 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+2. Request content that typically results in an Artifact
+3. Artifact window appears on the right side of the chat interface
+4. Two tabs: "Code" and "Preview"
+
+112 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+2. Request content that typically results in an Artifact
+3. Artifact window appears on the right side of the chat interface
+4. Two tabs: "Code" and "Preview"
+5. Edit code, view preview, or ask Claude for changes
+
+113 / 132
+
+Artifacts Recap
+1. Start or continue a conversation with Claude
+2. Request content that typically results in an Artifact
+3. Artifact window appears on the right side of the chat interface
+4. Two tabs: "Code" and "Preview"
+5. Edit code, view preview, or ask Claude for changes
+6. Switch between Artifacts using chat controls
+
+114 / 132
+
+Artifacts Recap
+Editing Artifacts
+Modify content in real-time
+
+115 / 132
+
+Artifacts Recap
+Editing Artifacts
+Modify content in real-time
+Ask Claude to make changes via chat
+
+116 / 132
+
+Artifacts Recap
+Editing Artifacts
+Modify content in real-time
+Ask Claude to make changes via chat
+Non-destructive edits with version history
+
+117 / 132
+
+Artifacts Recap
+Editing Artifacts
+Modify content in real-time
+Ask Claude to make changes via chat
+Non-destructive edits with version history
+Access previous versions using the version selector
+
+118 / 132
+
+Artifacts Recap
+Saving and Exporting Artifacts
+Copy to clipboard
+
+119 / 132
+
+Artifacts Recap
+Saving and Exporting Artifacts
+Copy to clipboard
+Download as file
+
+120 / 132
+
+Artifacts Recap
+Saving and Exporting Artifacts
+Copy to clipboard
+Download as file
+Access version history
+
+121 / 132
+
+Artifacts Recap
+Saving and Exporting Artifacts
+Copy to clipboard
+Download as file
+Access version history
+Save to projects (for better organization)
+
+122 / 132
+
+Artifacts Recap
+Saving and Exporting Artifacts
+Copy to clipboard
+Download as file
+Access version history
+Save to projects (for better organization)
+Team sharing (for Claude Team users)
+
+123 / 132
+
+Artifacts Recap
+Artifacts vs. Regular Chat Responses
+Regular Responses:
+Inline text
+Primarily text
+Static
+Typically shorter
+Limited visualization
+Artifacts:
+Dedicated window
+Multiple formats
+Fully editable
+Larger, complex content
+Rich visualization options
+
+124 / 132
+
+Artifacts Recap
+Integration with Projects
+Associate Artifacts with specific chats
+
+125 / 132
+
+Artifacts Recap
+Integration with Projects
+Associate Artifacts with specific chats
+Grant team member access for collaboration
+
+126 / 132
+
+Artifacts Recap
+Integration with Projects
+Associate Artifacts with specific chats
+Grant team member access for collaboration
+Share in Project's activity feed
+
+127 / 132
+
+Artifacts Recap
+Integration with Projects
+Associate Artifacts with specific chats
+Grant team member access for collaboration
+Share in Project's activity feed
+Manage complex, long-term projects efficiently
+
+128 / 132
+
+Q&A
+
+129 / 132
+
+Demo: Claude Desktop with MCPs Deep Dive
+
+130 / 132
+
+Demo: Building a Personal Assistant with
+Claude Desktop + MCPs
+
+131 / 132
+
+Demo: Comparing ChatGPT/Custom GPTs vs
+Claude/Artifacts
+
+132 / 132
+
+
