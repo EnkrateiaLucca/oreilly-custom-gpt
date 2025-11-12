@@ -1,6 +1,6 @@
-# Custom GPTs & Claude Artifacts: O'Reilly Live Training
+# ChatGPT & Claude
 
-A comprehensive training course repository covering Custom GPTs (ChatGPT) and Claude Artifacts, with practical examples, templates, and hands-on demonstrations for building specialized AI tools and workflows.
+A comprehensive training course repository covering ChatGPT, Custom GPTs, Claude along with their feature offerings and capabilities. Containing practical examples, templates, and hands-on demonstrations for building specialized AI tools and workflows.
 
 ## Overview
 
