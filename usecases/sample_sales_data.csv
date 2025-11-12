@@ -1,0 +1,51 @@
+order_id,date,region,sales_rep,product_category,product_name,quantity,unit_price,total_revenue,cost_of_goods,profit,customer_segment,payment_method
+ORD-10001,2024-01-05,Northeast,Sarah Chen,Electronics,Wireless Headphones,3,89.99,269.97,150.00,119.97,Consumer,Credit Card
+ORD-10002,2024-01-07,Southwest,Marcus Rodriguez,Home & Garden,Smart Thermostat,1,199.99,199.99,120.00,79.99,Consumer,PayPal
+ORD-10003,2024-01-08,Midwest,Jennifer Walsh,Office Supplies,Ergonomic Chair,2,349.99,699.98,450.00,249.98,Business,Purchase Order
+ORD-10004,2024-01-12,Southeast,David Kim,Electronics,4K Webcam,5,129.99,649.95,350.00,299.95,Business,Credit Card
+ORD-10005,2024-01-15,West,Sarah Chen,Sports & Outdoors,Yoga Mat Set,8,45.50,364.00,180.00,184.00,Consumer,Debit Card
+ORD-10006,2024-01-18,Northeast,Michael Brown,Electronics,Laptop Stand,4,79.99,319.96,160.00,159.96,Consumer,Credit Card
+ORD-10007,2024-01-22,Southwest,Jennifer Walsh,Home & Garden,Air Purifier,2,249.99,499.98,280.00,219.98,Consumer,PayPal
+ORD-10008,2024-01-25,Midwest,Marcus Rodriguez,Office Supplies,Standing Desk,1,599.99,599.99,380.00,219.99,Business,Purchase Order
+ORD-10009,2024-02-01,Southeast,Sarah Chen,Electronics,Wireless Mouse,12,34.99,419.88,180.00,239.88,Business,Credit Card
+ORD-10010,2024-02-03,West,David Kim,Sports & Outdoors,Running Shoes,6,119.99,719.94,420.00,299.94,Consumer,Credit Card
+ORD-10011,2024-02-07,Northeast,Jennifer Walsh,Electronics,USB-C Hub,7,49.99,349.93,175.00,174.93,Consumer,Debit Card
+ORD-10012,2024-02-10,Southwest,Michael Brown,Home & Garden,Smart Light Bulbs,15,24.99,374.85,150.00,224.85,Consumer,PayPal
+ORD-10013,2024-02-14,Midwest,Sarah Chen,Office Supplies,Monitor Arm,3,129.99,389.97,210.00,179.97,Business,Purchase Order
+ORD-10014,2024-02-18,Southeast,Marcus Rodriguez,Electronics,Portable SSD,4,159.99,639.96,360.00,279.96,Business,Credit Card
+ORD-10015,2024-02-22,West,Jennifer Walsh,Sports & Outdoors,Fitness Tracker,9,89.99,809.91,450.00,359.91,Consumer,Credit Card
+ORD-10016,2024-02-25,Northeast,David Kim,Home & Garden,Robot Vacuum,1,399.99,399.99,250.00,149.99,Consumer,PayPal
+ORD-10017,2024-03-01,Southwest,Sarah Chen,Electronics,Mechanical Keyboard,6,149.99,899.94,480.00,419.94,Business,Credit Card
+ORD-10018,2024-03-05,Midwest,Michael Brown,Office Supplies,Desk Organizer,10,29.99,299.90,120.00,179.90,Consumer,Debit Card
+ORD-10019,2024-03-08,Southeast,Jennifer Walsh,Electronics,Noise Canceling Headphones,2,299.99,599.98,340.00,259.98,Consumer,Credit Card
+ORD-10020,2024-03-12,West,Marcus Rodriguez,Sports & Outdoors,Camping Tent,3,189.99,569.97,330.00,239.97,Consumer,PayPal
+ORD-10021,2024-03-15,Northeast,Sarah Chen,Home & Garden,Smart Doorbell,4,179.99,719.96,400.00,319.96,Consumer,Credit Card
+ORD-10022,2024-03-19,Southwest,David Kim,Office Supplies,Whiteboard Set,5,89.99,449.95,225.00,224.95,Business,Purchase Order
+ORD-10023,2024-03-22,Midwest,Jennifer Walsh,Electronics,Tablet Stand,8,39.99,319.92,160.00,159.92,Consumer,Debit Card
+ORD-10024,2024-03-26,Southeast,Michael Brown,Sports & Outdoors,Resistance Bands,20,19.99,399.80,140.00,259.80,Consumer,Credit Card
+ORD-10025,2024-03-29,West,Marcus Rodriguez,Home & Garden,Electric Kettle,6,69.99,419.94,240.00,179.94,Consumer,PayPal
+ORD-10026,2024-04-02,Northeast,Jennifer Walsh,Electronics,Webcam Light,10,45.99,459.90,220.00,239.90,Business,Credit Card
+ORD-10027,2024-04-05,Southwest,Sarah Chen,Office Supplies,Filing Cabinet,2,279.99,559.98,360.00,199.98,Business,Purchase Order
+ORD-10028,2024-04-09,Midwest,David Kim,Electronics,External Monitor,3,379.99,1139.97,750.00,389.97,Business,Credit Card
+ORD-10029,2024-04-12,Southeast,Marcus Rodriguez,Sports & Outdoors,Dumbbell Set,4,129.99,519.96,300.00,219.96,Consumer,Debit Card
+ORD-10030,2024-04-16,West,Michael Brown,Home & Garden,Coffee Maker,7,99.99,699.93,385.00,314.93,Consumer,Credit Card
+ORD-10031,2024-04-20,Northeast,Sarah Chen,Electronics,Bluetooth Speaker,11,79.99,879.89,440.00,439.89,Consumer,PayPal
+ORD-10032,2024-04-23,Southwest,Jennifer Walsh,Office Supplies,Paper Shredder,3,149.99,449.97,270.00,179.97,Business,Purchase Order
+ORD-10033,2024-04-27,Midwest,Marcus Rodriguez,Electronics,Gaming Mouse,8,69.99,559.92,280.00,279.92,Consumer,Credit Card
+ORD-10034,2024-04-30,Southeast,David Kim,Sports & Outdoors,Water Bottle Set,15,24.99,374.85,150.00,224.85,Consumer,Debit Card
+ORD-10035,2024-05-03,West,Jennifer Walsh,Home & Garden,Ceiling Fan,2,199.99,399.98,240.00,159.98,Consumer,Credit Card
+ORD-10036,2024-05-07,Northeast,Michael Brown,Electronics,Laptop Backpack,9,89.99,809.91,405.00,404.91,Consumer,PayPal
+ORD-10037,2024-05-10,Southwest,Sarah Chen,Office Supplies,Adjustable Desk Lamp,6,79.99,479.94,240.00,239.94,Business,Credit Card
+ORD-10038,2024-05-14,Midwest,Marcus Rodriguez,Electronics,Wireless Charger,12,39.99,479.88,216.00,263.88,Consumer,Credit Card
+ORD-10039,2024-05-17,Southeast,Jennifer Walsh,Sports & Outdoors,Foam Roller,10,34.99,349.90,150.00,199.90,Consumer,Debit Card
+ORD-10040,2024-05-21,West,David Kim,Home & Garden,Blender,5,129.99,649.95,375.00,274.95,Consumer,PayPal
+ORD-10041,2024-05-24,Northeast,Sarah Chen,Electronics,Graphics Tablet,2,249.99,499.98,300.00,199.98,Business,Purchase Order
+ORD-10042,2024-05-28,Southwest,Michael Brown,Office Supplies,Bookshelf,4,179.99,719.96,440.00,279.96,Consumer,Credit Card
+ORD-10043,2024-05-31,Midwest,Jennifer Walsh,Electronics,Streaming Microphone,3,189.99,569.97,330.00,239.97,Business,Credit Card
+ORD-10044,2024-06-04,Southeast,Marcus Rodriguez,Sports & Outdoors,Bike Helmet,7,79.99,559.93,280.00,279.93,Consumer,Debit Card
+ORD-10045,2024-06-07,West,Sarah Chen,Home & Garden,Indoor Plant Set,8,49.99,399.92,200.00,199.92,Consumer,PayPal
+ORD-10046,2024-06-11,Northeast,David Kim,Electronics,Smart Watch,4,299.99,1199.96,720.00,479.96,Consumer,Credit Card
+ORD-10047,2024-06-14,Southwest,Jennifer Walsh,Office Supplies,Mesh Office Chair,2,399.99,799.98,520.00,279.98,Business,Purchase Order
+ORD-10048,2024-06-18,Midwest,Michael Brown,Electronics,Ring Light,6,59.99,359.94,180.00,179.94,Business,Credit Card
+ORD-10049,2024-06-21,Southeast,Marcus Rodriguez,Sports & Outdoors,Yoga Blocks,18,14.99,269.82,90.00,179.82,Consumer,Debit Card
+ORD-10050,2024-06-25,West,Jennifer Walsh,Home & Garden,Slow Cooker,4,89.99,359.96,200.00,159.96,Consumer,Credit Card

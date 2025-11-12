@@ -1,0 +1,6 @@
+employee_id,first_name,last_name,email,department,position,start_date,salary,phone,address,city,state,zip_code,emergency_contact_name,emergency_contact_phone,is_full_time,has_benefits
+E001,Sarah,Johnson,sarah.johnson@company.com,Engineering,Software Engineer,2022-03-15,85000,(555) 123-4567,123 Maple Street,Portland,OR,97201,John Johnson,(555) 123-4568,Yes,Yes
+E002,Michael,Chen,michael.chen@company.com,Marketing,Marketing Manager,2021-06-01,92000,(555) 234-5678,456 Oak Avenue,Seattle,WA,98101,Lisa Chen,(555) 234-5679,Yes,Yes
+E003,Emily,Rodriguez,emily.rodriguez@company.com,Sales,Sales Representative,2023-01-10,68000,(555) 345-6789,789 Pine Road,San Francisco,CA,94102,Carlos Rodriguez,(555) 345-6790,Yes,Yes
+E004,David,Thompson,david.thompson@company.com,Engineering,Senior Developer,2020-09-20,105000,(555) 456-7890,321 Birch Lane,Austin,TX,78701,Rachel Thompson,(555) 456-7891,Yes,Yes
+E005,Jessica,Williams,jessica.williams@company.com,Human Resources,HR Specialist,2022-11-05,72000,(555) 567-8901,654 Cedar Court,Denver,CO,80202,Mark Williams,(555) 567-8902,Yes,Yes
