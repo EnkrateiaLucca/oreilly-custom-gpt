@@ -1,0 +1,21 @@
+[
+  {"city": "Tokyo", "population_m": 37.4, "avg_temp_c": 15.4, "cost_index": 102, "green_space_pct": 7.5, "transit_score": 96},
+  {"city": "Delhi", "population_m": 32.9, "avg_temp_c": 25.0, "cost_index": 33, "green_space_pct": 4.2, "transit_score": 52},
+  {"city": "Shanghai", "population_m": 29.2, "avg_temp_c": 16.1, "cost_index": 58, "green_space_pct": 8.8, "transit_score": 88},
+  {"city": "São Paulo", "population_m": 22.6, "avg_temp_c": 19.2, "cost_index": 42, "green_space_pct": 6.1, "transit_score": 61},
+  {"city": "Mexico City", "population_m": 21.8, "avg_temp_c": 16.5, "cost_index": 38, "green_space_pct": 9.3, "transit_score": 57},
+  {"city": "Cairo", "population_m": 21.3, "avg_temp_c": 21.7, "cost_index": 28, "green_space_pct": 1.8, "transit_score": 44},
+  {"city": "Mumbai", "population_m": 21.0, "avg_temp_c": 27.2, "cost_index": 35, "green_space_pct": 2.5, "transit_score": 48},
+  {"city": "Beijing", "population_m": 20.9, "avg_temp_c": 12.9, "cost_index": 55, "green_space_pct": 10.2, "transit_score": 85},
+  {"city": "Dhaka", "population_m": 18.6, "avg_temp_c": 25.7, "cost_index": 24, "green_space_pct": 1.2, "transit_score": 31},
+  {"city": "Osaka", "population_m": 19.1, "avg_temp_c": 16.9, "cost_index": 91, "green_space_pct": 5.4, "transit_score": 93},
+  {"city": "New York", "population_m": 18.8, "avg_temp_c": 12.3, "cost_index": 100, "green_space_pct": 14.0, "transit_score": 84},
+  {"city": "Karachi", "population_m": 16.8, "avg_temp_c": 26.0, "cost_index": 22, "green_space_pct": 1.5, "transit_score": 29},
+  {"city": "Buenos Aires", "population_m": 15.5, "avg_temp_c": 17.9, "cost_index": 31, "green_space_pct": 8.9, "transit_score": 72},
+  {"city": "Istanbul", "population_m": 15.6, "avg_temp_c": 14.7, "cost_index": 40, "green_space_pct": 6.7, "transit_score": 68},
+  {"city": "Lagos", "population_m": 15.4, "avg_temp_c": 27.0, "cost_index": 30, "green_space_pct": 2.0, "transit_score": 22},
+  {"city": "London", "population_m": 9.5, "avg_temp_c": 11.3, "cost_index": 110, "green_space_pct": 33.0, "transit_score": 90},
+  {"city": "Paris", "population_m": 11.1, "avg_temp_c": 12.0, "cost_index": 106, "green_space_pct": 9.5, "transit_score": 92},
+  {"city": "Singapore", "population_m": 6.0, "avg_temp_c": 27.5, "cost_index": 93, "green_space_pct": 29.3, "transit_score": 95},
+  {"city": "Sydney", "population_m": 5.4, "avg_temp_c": 17.7, "cost_index": 88, "green_space_pct": 16.8, "transit_score": 74}
+]

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Homes — Realtor App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">🏠 Realtor App</a>
+            <div class="nav-links">
+                <a href="/" class="active">Browse Homes</a>
+                <a href="/agent">Agent Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Find Your Dream Home</h1>
+        <p>Browse our latest listings and find the perfect property for you.</p>
+    </header>
+
+    <main class="customer-layout">
+        <div class="filters">
+            <input type="text" id="search" placeholder="Search by title or address…">
+            <input type="number" id="min-price" placeholder="Min price" min="0" step="10000">
+            <input type="number" id="max-price" placeholder="Max price" min="0" step="10000">
+            <button class="btn primary" onclick="loadHouses()">Search</button>
+        </div>
+
+        <div id="houses" class="house-grid"></div>
+    </main>
+
+    <script>
+        async function loadHouses() {
+            const params = new URLSearchParams();
+            const search = document.getElementById('search').value.trim();
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+
+            if (search) params.set('search', search);
+            if (minPrice) params.set('min_price', minPrice);
+            if (maxPrice) params.set('max_price', maxPrice);
+
+            const res = await fetch(`/api/houses?${params}`);
+            const houses = await res.json();
+            const grid = document.getElementById('houses');
+
+            grid.innerHTML = houses.length === 0
+                ? '<p class="empty">No properties found. Try adjusting your search.</p>'
+                : houses.map(h => `
+                    <div class="house-card">
+                        <div class="house-img" style="background-image: url('${h.image_url || ''}')">
+                            ${!h.image_url ? '<span class="no-img">No Image</span>' : ''}
+                        </div>
+                        <div class="house-body">
+                            <p class="house-price">$${Number(h.price).toLocaleString()}</p>
+                            <h3 class="house-title">${h.title}</h3>
+                            <p class="house-details">${h.bedrooms} bd · ${h.bathrooms} ba · ${Number(h.sqft).toLocaleString()} sqft</p>
+                            <p class="house-address">${h.address}</p>
+                            ${h.description ? `<p class="house-desc">${h.description}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        // Search on Enter key
+        document.getElementById('search').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') loadHouses();
+        });
+
+        loadHouses();
+    </script>
+</body>
+</html>

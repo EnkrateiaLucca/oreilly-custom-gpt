@@ -1,0 +1,209 @@
+/* ─── Reset & Base ──────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #6e6e73;
+    --primary: #0071e3;
+    --primary-hover: #0060c0;
+    --danger: #d63031;
+    --border: #d2d2d7;
+    --radius: 12px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+/* ─── Nav ───────────────────────────────────── */
+nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+}
+.nav-links a {
+    margin-left: 24px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.nav-links a.active { color: var(--primary); }
+
+/* ─── Buttons ───────────────────────────────── */
+.btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.15s;
+}
+.btn:hover { background: var(--bg); }
+.btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn.primary:hover { background: var(--primary-hover); }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+.btn.danger:hover { background: #ffeaea; }
+.btn.small { padding: 5px 12px; font-size: 0.8rem; }
+
+/* ─── Agent Dashboard ───────────────────────── */
+.agent-layout {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+.form-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: sticky;
+    top: 80px;
+}
+.form-panel h2 { font-size: 1.15rem; margin-bottom: 16px; }
+.form-panel label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+.form-panel input, .form-panel textarea {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+.form-panel .row { display: flex; gap: 12px; }
+.form-panel .row label { flex: 1; }
+.form-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+.listings-panel h2 { font-size: 1.15rem; margin-bottom: 16px; }
+.listing-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+}
+.listing-card img {
+    width: 90px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.listing-info { flex: 1; min-width: 0; }
+.listing-info h3 { font-size: 0.95rem; }
+.listing-info .price { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+.listing-info .details, .listing-info .address { font-size: 0.8rem; color: var(--muted); }
+.listing-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+/* ─── Customer Page ─────────────────────────── */
+.hero {
+    text-align: center;
+    padding: 48px 24px 32px;
+}
+.hero h1 { font-size: 2rem; font-weight: 700; }
+.hero p { color: var(--muted); margin-top: 8px; }
+
+.customer-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
+}
+.filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+.filters input {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 140px;
+}
+.filters input:first-child { flex: 2; }
+
+.house-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+.house-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.house-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.house-img {
+    height: 200px;
+    background: #e8e8ed center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-img { color: var(--muted); font-size: 0.85rem; }
+.house-body { padding: 18px; }
+.house-price { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+.house-title { font-size: 1rem; margin: 4px 0; }
+.house-details { font-size: 0.85rem; color: var(--muted); }
+.house-address { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+.house-desc { font-size: 0.85rem; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 48px 0;
+    grid-column: 1 / -1;
+}
+
+/* ─── Responsive ────────────────────────────── */
+@media (max-width: 768px) {
+    .agent-layout { grid-template-columns: 1fr; }
+    .form-panel { position: static; }
+    .hero h1 { font-size: 1.5rem; }
+    .listing-card { flex-direction: column; align-items: flex-start; }
+    .listing-card img { width: 100%; height: 140px; }
+}

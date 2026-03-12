@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard — Realtor App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">🏠 Realtor App</a>
+            <div class="nav-links">
+                <a href="/">Customer View</a>
+                <a href="/agent" class="active">Agent Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="agent-layout">
+        <section class="form-panel">
+            <h2 id="form-title">Add New Listing</h2>
+            <form id="house-form">
+                <input type="hidden" id="edit-id">
+                <label>Title<input type="text" id="title" required></label>
+                <label>Price ($)<input type="number" id="price" min="0" step="1000" required></label>
+                <div class="row">
+                    <label>Beds<input type="number" id="bedrooms" min="0" required></label>
+                    <label>Baths<input type="number" id="bathrooms" min="0" required></label>
+                    <label>Sqft<input type="number" id="sqft" min="0" required></label>
+                </div>
+                <label>Address<input type="text" id="address" required></label>
+                <label>Image URL<input type="url" id="image_url" placeholder="https://..."></label>
+                <label>Description<textarea id="description" rows="3"></textarea></label>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary" id="submit-btn">Add Listing</button>
+                    <button type="button" class="btn" id="cancel-btn" style="display:none" onclick="cancelEdit()">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="listings-panel">
+            <h2>Current Listings</h2>
+            <div id="listings"></div>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById('house-form');
+        const listingsDiv = document.getElementById('listings');
+
+        async function loadListings() {
+            const res = await fetch('/api/houses');
+            const houses = await res.json();
+            listingsDiv.innerHTML = houses.length === 0
+                ? '<p class="empty">No listings yet. Add your first property!</p>'
+                : houses.map(h => `
+                    <div class="listing-card">
+                        ${h.image_url ? `<img src="${h.image_url}" alt="${h.title}">` : ''}
+                        <div class="listing-info">
+                            <h3>${h.title}</h3>
+                            <p class="price">$${Number(h.price).toLocaleString()}</p>
+                            <p class="details">${h.bedrooms} bd · ${h.bathrooms} ba · ${Number(h.sqft).toLocaleString()} sqft</p>
+                            <p class="address">${h.address}</p>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="btn small" onclick="editHouse(${h.id})">Edit</button>
+                            <button class="btn small danger" onclick="deleteHouse(${h.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('title').value,
+                price: parseFloat(document.getElementById('price').value),
+                bedrooms: parseInt(document.getElementById('bedrooms').value),
+                bathrooms: parseInt(document.getElementById('bathrooms').value),
+                sqft: parseInt(document.getElementById('sqft').value),
+                address: document.getElementById('address').value,
+                description: document.getElementById('description').value,
+                image_url: document.getElementById('image_url').value,
+            };
+            const editId = document.getElementById('edit-id').value;
+            if (editId) {
+                await fetch(`/api/houses/${editId}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+            } else {
+                await fetch('/api/houses', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+            }
+            form.reset();
+            cancelEdit();
+            loadListings();
+        });
+
+        async function editHouse(id) {
+            const res = await fetch('/api/houses');
+            const houses = await res.json();
+            const h = houses.find(x => x.id === id);
+            if (!h) return;
+            document.getElementById('edit-id').value = h.id;
+            document.getElementById('title').value = h.title;
+            document.getElementById('price').value = h.price;
+            document.getElementById('bedrooms').value = h.bedrooms;
+            document.getElementById('bathrooms').value = h.bathrooms;
+            document.getElementById('sqft').value = h.sqft;
+            document.getElementById('address').value = h.address;
+            document.getElementById('description').value = h.description;
+            document.getElementById('image_url').value = h.image_url;
+            document.getElementById('form-title').textContent = 'Edit Listing';
+            document.getElementById('submit-btn').textContent = 'Update Listing';
+            document.getElementById('cancel-btn').style.display = 'inline-block';
+        }
+
+        function cancelEdit() {
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-title').textContent = 'Add New Listing';
+            document.getElementById('submit-btn').textContent = 'Add Listing';
+            document.getElementById('cancel-btn').style.display = 'none';
+        }
+
+        async function deleteHouse(id) {
+            if (!confirm('Delete this listing?')) return;
+            await fetch(`/api/houses/${id}`, { method: 'DELETE' });
+            loadListings();
+        }
+
+        loadListings();
+    </script>
+</body>
+</html>

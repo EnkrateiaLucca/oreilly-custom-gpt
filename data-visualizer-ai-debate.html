@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualizer — AI Debate Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.0/marked.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1117;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #1a1b2e 0%, #16213e 100%);
+            border-bottom: 1px solid #2d3748;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .app-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-primary:hover:not(:disabled) { background: #2563eb; }
+
+        .btn-secondary { background: #374151; color: #e2e8f0; border: 1px solid #4b5563; }
+        .btn-secondary:hover:not(:disabled) { background: #4b5563; }
+
+        .btn-accent { background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; }
+        .btn-accent:hover:not(:disabled) { background: linear-gradient(135deg, #7c3aed, #4f46e5); }
+
+        .btn-debate { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+        .btn-debate:hover:not(:disabled) { background: linear-gradient(135deg, #d97706, #dc2626); }
+
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: calc(100vh - 57px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #1a1b2e;
+            border-right: 1px solid #2d3748;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .panel {
+            background: #1e2235;
+            border: 1px solid #2d3748;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        /* Drop zone */
+        .drop-zone {
+            border: 2px dashed #4b5563;
+            border-radius: 10px;
+            padding: 28px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .drop-zone input[type="file"] { display: none; }
+
+        .drop-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .drop-text {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .drop-text strong { color: #60a5fa; }
+
+        /* Data preview */
+        .data-preview {
+            max-height: 200px;
+            overflow: auto;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 11px;
+            background: #0f1117;
+            border-radius: 6px;
+            padding: 8px;
+            color: #94a3b8;
+            white-space: pre;
+        }
+
+        /* Chart type selector */
+        .chart-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .chart-type-btn {
+            background: #2d3748;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 10px 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #e2e8f0;
+            font-size: 12px;
+        }
+
+        .chart-type-btn:hover { background: #374151; }
+        .chart-type-btn.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+        .chart-type-btn .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+        /* Column selectors */
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            background: #0f1117;
+            border: 1px solid #4b5563;
+            border-radius: 6px;
+            color: #e2e8f0;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        select:focus { outline: none; border-color: #3b82f6; }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .field { margin-bottom: 12px; }
+
+        /* Main content */
+        .content {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: #1e2235;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .chart-container canvas { max-height: 500px; }
+
+        .chart-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 350px;
+            color: #4b5563;
+        }
+
+        .chart-placeholder .icon { font-size: 48px; margin-bottom: 12px; }
+
+        /* Debate panel */
+        .debate-panel {
+            background: #1e2235;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .debate-header {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15));
+            padding: 16px 20px;
+            border-bottom: 1px solid #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .debate-header h3 {
+            font-size: 16px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .debate-messages {
+            padding: 16px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .debate-msg {
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .debate-msg.claude {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid #8b5cf6;
+        }
+
+        .debate-msg.chatgpt {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid #10b981;
+        }
+
+        .debate-msg.consensus {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .debate-msg .speaker {
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .debate-msg.claude .speaker { color: #a78bfa; }
+        .debate-msg.chatgpt .speaker { color: #34d399; }
+        .debate-msg.consensus .speaker { color: #fbbf24; }
+
+        .debate-msg .body { color: #cbd5e1; }
+        .debate-msg .body p { margin-bottom: 8px; }
+        .debate-msg .body ul, .debate-msg .body ol { margin-left: 20px; margin-bottom: 8px; }
+        .debate-msg .body strong { color: #e2e8f0; }
+        .debate-msg .body code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+
+        .debate-status {
+            text-align: center;
+            padding: 20px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .apply-consensus {
+            padding: 16px;
+            border-top: 1px solid #2d3748;
+            display: none;
+        }
+
+        /* Settings footer */
+        .settings-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #2d3748;
+            margin-top: auto;
+        }
+
+        .settings-footer a {
+            color: #64748b;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .settings-footer a:hover { color: #94a3b8; }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e2235;
+            border: 1px solid #2d3748;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 14px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        }
+
+        .toast.error { border-color: #ef4444; color: #fca5a5; }
+        .toast.success { border-color: #10b981; color: #6ee7b7; }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .sidebar {
+                max-height: 50vh;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+    <h1>Data Visualizer — AI Debate Edition</h1>
+    <div class="header-actions">
+        <button class="btn btn-accent" id="btnGenerate" onclick="aiGenerateData()">
+            AI Data Generate
+        </button>
+        <button class="btn btn-debate" id="btnDebate" onclick="startDebate()">
+            AI Debate
+        </button>
+    </div>
+</header>
+
+<div class="main-layout">
+    <aside class="sidebar">
+        <!-- File Upload -->
+        <div class="panel">
+            <div class="panel-title">Data Source</div>
+            <div class="drop-zone" id="dropZone">
+                <input type="file" accept=".json,.csv" id="fileInput">
+                <span class="drop-icon">&#128202;</span>
+                <div class="drop-text">
+                    Drop <strong>.json</strong> or <strong>.csv</strong> here<br>
+                    <small>or click to browse</small>
+                </div>
+            </div>
+            <div id="dataPreview" style="display:none; margin-top: 12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span class="panel-title" style="margin:0;">Preview</span>
+                    <span id="rowCount" style="font-size:11px; color:#64748b;"></span>
+                </div>
+                <div class="data-preview" id="previewContent"></div>
+            </div>
+        </div>
+
+        <!-- Chart Type -->
+        <div class="panel">
+            <div class="panel-title">Chart Type</div>
+            <div class="chart-types" id="chartTypes">
+                <div class="chart-type-btn active" data-type="bar" onclick="selectChartType(this)">
+                    <span class="icon">&#9646;&#9646;&#9646;</span> Bar
+                </div>
+                <div class="chart-type-btn" data-type="line" onclick="selectChartType(this)">
+                    <span class="icon">&#10138;</span> Line
+                </div>
+                <div class="chart-type-btn" data-type="pie" onclick="selectChartType(this)">
+                    <span class="icon">&#9684;</span> Pie
+                </div>
+                <div class="chart-type-btn" data-type="doughnut" onclick="selectChartType(this)">
+                    <span class="icon">&#9711;</span> Doughnut
+                </div>
+                <div class="chart-type-btn" data-type="scatter" onclick="selectChartType(this)">
+                    <span class="icon">&#11044;&#11044;</span> Scatter
+                </div>
+                <div class="chart-type-btn" data-type="radar" onclick="selectChartType(this)">
+                    <span class="icon">&#11042;</span> Radar
+                </div>
+            </div>
+        </div>
+
+        <!-- Column Mapping -->
+        <div class="panel" id="columnPanel" style="display:none;">
+            <div class="panel-title">Column Mapping</div>
+            <div class="field">
+                <label>Labels (X-Axis)</label>
+                <select id="labelCol" onchange="renderChart()"></select>
+            </div>
+            <div class="field" id="valueField">
+                <label>Values (Y-Axis)</label>
+                <select id="valueCol" onchange="renderChart()"></select>
+            </div>
+            <div class="field" id="valueField2" style="display:none;">
+                <label>Values 2 (Y-Axis, for scatter)</label>
+                <select id="valueCol2" onchange="renderChart()"></select>
+            </div>
+        </div>
+
+        <!-- Chart Options -->
+        <div class="panel">
+            <div class="panel-title">Options</div>
+            <div class="field">
+                <label>Color Scheme</label>
+                <select id="colorScheme" onchange="renderChart()">
+                    <option value="vibrant">Vibrant</option>
+                    <option value="pastel">Pastel</option>
+                    <option value="neon">Neon</option>
+                    <option value="earth">Earth Tones</option>
+                    <option value="mono">Monochrome Blue</option>
+                </select>
+            </div>
+            <div class="field">
+                <label style="display:flex;align-items:center;gap:6px;">
+                    <input type="checkbox" id="showLegend" checked onchange="renderChart()"> Show Legend
+                </label>
+            </div>
+            <div class="field">
+                <label style="display:flex;align-items:center;gap:6px;">
+                    <input type="checkbox" id="showGrid" checked onchange="renderChart()"> Show Grid
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <a onclick="resetApiKeys()">Reset API Keys</a>
+        </div>
+    </aside>
+
+    <main class="content">
+        <!-- Chart -->
+        <div class="chart-container">
+            <div class="chart-placeholder" id="chartPlaceholder">
+                <span class="icon">&#128200;</span>
+                <p>Upload data or use <strong>AI Data Generate</strong> to get started</p>
+            </div>
+            <canvas id="mainChart" style="display:none;"></canvas>
+        </div>
+
+        <!-- Debate Panel -->
+        <div class="debate-panel" id="debatePanel" style="display:none;">
+            <div class="debate-header">
+                <h3>AI Visualization Debate</h3>
+                <div>
+                    <span style="color:#a78bfa; font-size:13px; margin-right:12px;">&#9679; Claude (Sonnet 4.6)</span>
+                    <span style="color:#34d399; font-size:13px;">&#9679; ChatGPT (GPT 5.4)</span>
+                </div>
+            </div>
+            <div class="debate-messages" id="debateMessages">
+                <div class="debate-status" id="debateStatus">Start a debate to see AI recommendations...</div>
+            </div>
+            <div class="apply-consensus" id="applySection">
+                <button class="btn btn-primary" onclick="applyConsensus()" style="width:100%;">
+                    Apply Consensus Recommendation
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // ── State ─────────────────────────────────────
+    let currentData = null;    // Parsed data array
+    let columns = [];          // Column names
+    let chartType = 'bar';
+    let chartInstance = null;
+    let consensusConfig = null;
+    let debateHistory = [];
+
+    // ── Color Palettes ────────────────────────────
+    const palettes = {
+        vibrant: ['#3b82f6','#ef4444','#10b981','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#14b8a6','#6366f1'],
+        pastel: ['#93c5fd','#fca5a5','#86efac','#fde68a','#c4b5fd','#fbcfe8','#a5f3fc','#fdba74','#99f6e4','#a5b4fc'],
+        neon: ['#00f0ff','#ff00e5','#39ff14','#ffff00','#ff3131','#bf00ff','#00ff88','#ff8c00','#00bfff','#ff1493'],
+        earth: ['#92400e','#065f46','#7c2d12','#1e3a5f','#5b21b6','#78350f','#064e3b','#713f12','#1e40af','#581c87'],
+        mono: ['#1e40af','#2563eb','#3b82f6','#60a5fa','#93c5fd','#bfdbfe','#dbeafe','#1d4ed8','#1e3a8a','#172554']
+    };
+
+    // ── API Key Management ────────────────────────
+    function getApiKey(keyName, providerName) {
+        let key = localStorage.getItem(keyName);
+        if (!key) {
+            key = prompt(`Enter your ${providerName} API key:\n\n(Stored locally in your browser, never sent to any server except the ${providerName} API)`);
+            if (key) localStorage.setItem(keyName, key.trim());
+        }
+        return key;
+    }
+
+    function resetApiKeys() {
+        localStorage.removeItem('ANTHROPIC_API_KEY');
+        localStorage.removeItem('OPENAI_API_KEY');
+        showToast('API keys cleared', 'success');
+    }
+
+    // ── Toast ─────────────────────────────────────
+    function showToast(msg, type = 'success') {
+        const existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.textContent = msg;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+    }
+
+    // ── File Upload ───────────────────────────────
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+    async function handleFile(file) {
+        const text = await file.text();
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        try {
+            if (ext === 'json') {
+                let parsed = JSON.parse(text);
+                if (!Array.isArray(parsed)) {
+                    // Try to find an array in the object
+                    const keys = Object.keys(parsed);
+                    const arrKey = keys.find(k => Array.isArray(parsed[k]));
+                    if (arrKey) parsed = parsed[arrKey];
+                    else throw new Error('JSON must contain an array of objects');
+                }
+                loadData(parsed);
+            } else if (ext === 'csv') {
+                loadData(parseCSV(text));
+            } else {
+                showToast('Please upload a .json or .csv file', 'error');
+            }
+        } catch (err) {
+            showToast('Parse error: ' + err.message, 'error');
+        }
+    }
+
+    function parseCSV(text) {
+        const lines = text.trim().split('\n');
+        if (lines.length < 2) throw new Error('CSV needs at least a header and one data row');
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+        return lines.slice(1).filter(l => l.trim()).map(line => {
+            const vals = line.match(/(".*?"|[^,]+)/g) || [];
+            const obj = {};
+            headers.forEach((h, i) => {
+                let v = (vals[i] || '').trim().replace(/^"|"$/g, '');
+                const num = Number(v);
+                obj[h] = isNaN(num) || v === '' ? v : num;
+            });
+            return obj;
+        });
+    }
+
+    function loadData(data) {
+        if (!data.length) { showToast('No data rows found', 'error'); return; }
+        currentData = data;
+        columns = Object.keys(data[0]);
+
+        // Show preview
+        document.getElementById('dataPreview').style.display = 'block';
+        document.getElementById('rowCount').textContent = `${data.length} rows, ${columns.length} cols`;
+        document.getElementById('previewContent').textContent =
+            JSON.stringify(data.slice(0, 5), null, 2);
+
+        // Populate column selectors
+        populateSelectors();
+        document.getElementById('columnPanel').style.display = 'block';
+        renderChart();
+        showToast(`Loaded ${data.length} rows`);
+    }
+
+    function populateSelectors() {
+        const numericCols = columns.filter(c => currentData.some(r => typeof r[c] === 'number'));
+        const allCols = columns;
+
+        ['labelCol', 'valueCol', 'valueCol2'].forEach(id => {
+            const sel = document.getElementById(id);
+            sel.innerHTML = '';
+            const source = id === 'labelCol' ? allCols : numericCols.length ? numericCols : allCols;
+            source.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                sel.appendChild(opt);
+            });
+        });
+
+        // Smart defaults: first non-numeric for labels, first numeric for values
+        const nonNumeric = columns.find(c => !currentData.some(r => typeof r[c] === 'number'));
+        if (nonNumeric) document.getElementById('labelCol').value = nonNumeric;
+        if (numericCols.length) document.getElementById('valueCol').value = numericCols[0];
+        if (numericCols.length > 1) document.getElementById('valueCol2').value = numericCols[1];
+    }
+
+    // ── Chart Type Selection ──────────────────────
+    function selectChartType(el) {
+        document.querySelectorAll('.chart-type-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        chartType = el.dataset.type;
+
+        // Show/hide second value for scatter
+        document.getElementById('valueField2').style.display =
+            chartType === 'scatter' ? 'block' : 'none';
+
+        renderChart();
+    }
+
+    // ── Render Chart ──────────────────────────────
+    function renderChart() {
+        if (!currentData) return;
+
+        const canvas = document.getElementById('mainChart');
+        const placeholder = document.getElementById('chartPlaceholder');
+        placeholder.style.display = 'none';
+        canvas.style.display = 'block';
+
+        if (chartInstance) chartInstance.destroy();
+
+        const labelCol = document.getElementById('labelCol').value;
+        const valueCol = document.getElementById('valueCol').value;
+        const valueCol2 = document.getElementById('valueCol2').value;
+        const colors = palettes[document.getElementById('colorScheme').value];
+        const showLegend = document.getElementById('showLegend').checked;
+        const showGrid = document.getElementById('showGrid').checked;
+
+        const labels = currentData.map(r => r[labelCol]);
+        const values = currentData.map(r => Number(r[valueCol]) || 0);
+
+        let data, options;
+
+        if (chartType === 'scatter') {
+            const values2 = currentData.map(r => Number(r[valueCol2]) || 0);
+            data = {
+                datasets: [{
+                    label: `${valueCol} vs ${valueCol2}`,
+                    data: values.map((v, i) => ({ x: v, y: values2[i] })),
+                    backgroundColor: colors[0] + '99',
+                    borderColor: colors[0],
+                    pointRadius: 5
+                }]
+            };
+            options = {
+                scales: {
+                    x: { title: { display: true, text: valueCol, color: '#94a3b8' },
+                         grid: { display: showGrid, color: '#2d3748' }, ticks: { color: '#94a3b8' } },
+                    y: { title: { display: true, text: valueCol2, color: '#94a3b8' },
+                         grid: { display: showGrid, color: '#2d3748' }, ticks: { color: '#94a3b8' } }
+                }
+            };
+        } else if (['pie', 'doughnut'].includes(chartType)) {
+            data = {
+                labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors.slice(0, values.length),
+                    borderWidth: 2,
+                    borderColor: '#1e2235'
+                }]
+            };
+            options = {};
+        } else {
+            data = {
+                labels,
+                datasets: [{
+                    label: valueCol,
+                    data: values,
+                    backgroundColor: chartType === 'line'
+                        ? colors[0] + '33'
+                        : colors.slice(0, values.length),
+                    borderColor: chartType === 'line' ? colors[0] : colors.slice(0, values.length),
+                    borderWidth: chartType === 'line' ? 2 : 1,
+                    fill: chartType === 'line',
+                    tension: 0.3,
+                    pointRadius: chartType === 'line' ? 4 : 0,
+                    pointBackgroundColor: colors[0]
+                }]
+            };
+            options = {
+                scales: {
+                    x: { grid: { display: showGrid, color: '#2d3748' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { display: showGrid, color: '#2d3748' }, ticks: { color: '#94a3b8' },
+                         beginAtZero: true }
+                }
+            };
+        }
+
+        if (chartType === 'radar') {
+            options = {
+                scales: {
+                    r: {
+                        grid: { color: '#2d3748' },
+                        angleLines: { color: '#2d3748' },
+                        pointLabels: { color: '#94a3b8' },
+                        ticks: { color: '#94a3b8', backdropColor: 'transparent' }
+                    }
+                }
+            };
+        }
+
+        chartInstance = new Chart(canvas.getContext('2d'), {
+            type: chartType,
+            data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: showLegend, labels: { color: '#e2e8f0' } }
+                },
+                ...options
+            }
+        });
+    }
+
+    // ── AI Data Generate ──────────────────────────
+    async function aiGenerateData() {
+        const apiKey = getApiKey('ANTHROPIC_API_KEY', 'Anthropic');
+        if (!apiKey) return;
+
+        const btn = document.getElementById('btnGenerate');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Generating...';
+
+        try {
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                    'anthropic-version': '2023-06-01',
+                    'anthropic-dangerous-direct-browser-access': 'true'
+                },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-6',
+                    max_tokens: 2048,
+                    messages: [{
+                        role: 'user',
+                        content: `Generate a realistic and interesting synthetic dataset for data visualization.
+Return ONLY a JSON array of 15-25 objects with 4-6 columns. Mix numeric and categorical data.
+Make it a creative, real-world-like dataset (e.g., startup metrics, city comparisons, product sales, sports stats, climate data, etc.).
+Choose a random interesting topic each time.
+Return ONLY the raw JSON array, no markdown fences, no explanation.`
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error?.message || 'API call failed');
+            }
+
+            const result = await response.json();
+            const text = result.content[0].text.trim();
+            // Strip markdown fences if present
+            const clean = text.replace(/^```json?\n?/, '').replace(/\n?```$/, '');
+            const data = JSON.parse(clean);
+            loadData(data);
+            showToast('Synthetic data generated!');
+        } catch (err) {
+            showToast('Generate failed: ' + err.message, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'AI Data Generate';
+        }
+    }
+
+    // ── AI Debate ─────────────────────────────────
+    async function startDebate() {
+        if (!currentData) {
+            showToast('Load some data first (upload or generate)', 'error');
+            return;
+        }
+
+        const anthropicKey = getApiKey('ANTHROPIC_API_KEY', 'Anthropic');
+        if (!anthropicKey) return;
+        const openaiKey = getApiKey('OPENAI_API_KEY', 'OpenAI');
+        if (!openaiKey) return;
+
+        const panel = document.getElementById('debatePanel');
+        const msgs = document.getElementById('debateMessages');
+        const status = document.getElementById('debateStatus');
+        const applySection = document.getElementById('applySection');
+
+        panel.style.display = 'block';
+        msgs.innerHTML = '';
+        applySection.style.display = 'none';
+        debateHistory = [];
+        consensusConfig = null;
+
+        const btn = document.getElementById('btnDebate');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Debating...';
+
+        // Prepare data summary
+        const sample = JSON.stringify(currentData.slice(0, 5), null, 2);
+        const numericCols = columns.filter(c => currentData.some(r => typeof r[c] === 'number'));
+        const catCols = columns.filter(c => !numericCols.includes(c));
+
+        const dataContext = `Dataset: ${currentData.length} rows, ${columns.length} columns.
+Columns: ${columns.join(', ')}
+Numeric columns: ${numericCols.join(', ') || 'none'}
+Categorical columns: ${catCols.join(', ') || 'none'}
+Sample (first 5 rows):
+${sample}`;
+
+        const systemPrompt = `You are debating the best data visualization approach. Be specific, opinionated, and constructive. Reference the actual column names and data. Keep each response to 2-3 short paragraphs. Suggest specific chart type, color scheme (from: vibrant, pastel, neon, earth, mono), which columns to map where, and why.`;
+
+        try {
+            // Round 1: Claude opens
+            addDebateMsg(msgs, 'system', 'Round 1 — Claude opens with a recommendation...');
+            const claude1 = await callClaude(anthropicKey, [
+                { role: 'user', content: `${dataContext}\n\nAs a data visualization expert, propose the BEST way to visualize this data. Be specific about chart type, columns, colors, and rationale.` }
+            ], systemPrompt);
+            addDebateMsg(msgs, 'claude', claude1);
+
+            // Round 1: ChatGPT responds
+            addDebateMsg(msgs, 'system', 'Round 1 — ChatGPT responds...');
+            const gpt1 = await callGPT(openaiKey, [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: `${dataContext}\n\nA colleague proposed this visualization approach:\n\n${claude1}\n\nDo you agree or disagree? Propose your own recommendation, explaining where you agree and where you'd do things differently.` }
+            ]);
+            addDebateMsg(msgs, 'chatgpt', gpt1);
+
+            // Round 2: Claude rebuts
+            addDebateMsg(msgs, 'system', 'Round 2 — Claude responds to ChatGPT...');
+            const claude2 = await callClaude(anthropicKey, [
+                { role: 'user', content: `${dataContext}\n\nYou previously proposed:\n${claude1}\n\nYour colleague responded:\n${gpt1}\n\nRespond to their points. Where do you concede? Where do you push back? Refine your recommendation.` }
+            ], systemPrompt);
+            addDebateMsg(msgs, 'claude', claude2);
+
+            // Round 2: ChatGPT rebuts
+            addDebateMsg(msgs, 'system', 'Round 2 — ChatGPT refines position...');
+            const gpt2 = await callGPT(openaiKey, [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: `${dataContext}\n\nDebate so far:\n\nClaude (initial): ${claude1}\n\nYou (initial): ${gpt1}\n\nClaude (rebuttal): ${claude2}\n\nRespond and refine your position. Find common ground while defending your strongest points.` }
+            ]);
+            addDebateMsg(msgs, 'chatgpt', gpt2);
+
+            // Round 3: Consensus
+            addDebateMsg(msgs, 'system', 'Synthesizing consensus...');
+            const consensusPrompt = `${dataContext}
+
+Full debate transcript:
+Claude (R1): ${claude1}
+ChatGPT (R1): ${gpt1}
+Claude (R2): ${claude2}
+ChatGPT (R2): ${gpt2}
+
+Now synthesize the FINAL CONSENSUS recommendation both AIs converged on.
+At the end, include a JSON block with exactly this format (no other text after it):
+\`\`\`json
+{"chartType": "bar|line|pie|doughnut|scatter|radar", "labelCol": "column_name", "valueCol": "column_name", "colorScheme": "vibrant|pastel|neon|earth|mono"}
+\`\`\``;
+
+            const consensus = await callClaude(anthropicKey, [
+                { role: 'user', content: consensusPrompt }
+            ], 'You are synthesizing a debate between two AI visualization experts into a final consensus. Be concise and actionable.');
+
+            addDebateMsg(msgs, 'consensus', consensus);
+
+            // Parse consensus config
+            const jsonMatch = consensus.match(/```json\s*([\s\S]*?)\s*```/);
+            if (jsonMatch) {
+                try {
+                    consensusConfig = JSON.parse(jsonMatch[1]);
+                    applySection.style.display = 'block';
+                } catch(e) {
+                    console.warn('Could not parse consensus JSON', e);
+                }
+            }
+
+        } catch (err) {
+            showToast('Debate error: ' + err.message, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'AI Debate';
+        }
+    }
+
+    function addDebateMsg(container, type, text) {
+        // Remove prior system status
+        const prevStatus = container.querySelector('.debate-status:last-child');
+        if (prevStatus && type !== 'system') prevStatus.remove();
+
+        if (type === 'system') {
+            const el = document.createElement('div');
+            el.className = 'debate-status';
+            el.innerHTML = '<span class="spinner"></span> ' + text;
+            container.appendChild(el);
+        } else {
+            const el = document.createElement('div');
+            const speakerLabels = {
+                claude: 'Claude — Sonnet 4.6',
+                chatgpt: 'ChatGPT — GPT 5.4',
+                consensus: 'Consensus Recommendation'
+            };
+            el.className = `debate-msg ${type}`;
+            el.innerHTML = `
+                <div class="speaker">${speakerLabels[type]}</div>
+                <div class="body">${marked.parse(text)}</div>
+            `;
+            container.appendChild(el);
+        }
+        container.scrollTop = container.scrollHeight;
+    }
+
+    // ── API Calls ─────────────────────────────────
+    async function callClaude(apiKey, messages, system = '') {
+        const body = {
+            model: 'claude-sonnet-4-6',
+            max_tokens: 1024,
+            messages
+        };
+        if (system) body.system = system;
+
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apiKey,
+                'anthropic-version': '2023-06-01',
+                'anthropic-dangerous-direct-browser-access': 'true'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error('Claude: ' + (err.error?.message || response.status));
+        }
+
+        const result = await response.json();
+        return result.content[0].text;
+    }
+
+    async function callGPT(apiKey, messages) {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-5.4',
+                messages,
+                max_tokens: 1024
+            })
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error('ChatGPT: ' + (err.error?.message || response.status));
+        }
+
+        const result = await response.json();
+        return result.choices[0].message.content;
+    }
+
+    // ── Apply Consensus ───────────────────────────
+    function applyConsensus() {
+        if (!consensusConfig) return;
+
+        // Apply chart type
+        const typeBtn = document.querySelector(`.chart-type-btn[data-type="${consensusConfig.chartType}"]`);
+        if (typeBtn) selectChartType(typeBtn);
+
+        // Apply columns
+        if (consensusConfig.labelCol && columns.includes(consensusConfig.labelCol)) {
+            document.getElementById('labelCol').value = consensusConfig.labelCol;
+        }
+        if (consensusConfig.valueCol && columns.includes(consensusConfig.valueCol)) {
+            document.getElementById('valueCol').value = consensusConfig.valueCol;
+        }
+
+        // Apply color scheme
+        if (consensusConfig.colorScheme) {
+            document.getElementById('colorScheme').value = consensusConfig.colorScheme;
+        }
+
+        renderChart();
+        showToast('Consensus applied!');
+    }
+</script>
+
+</body>
+</html>
