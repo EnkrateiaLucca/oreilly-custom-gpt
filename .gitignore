@@ -24,3 +24,6 @@ venv/
 # IDE
 .idea/
 .vscode/
+Plans/
+research/
+walkthrough.md
