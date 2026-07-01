@@ -19,9 +19,7 @@ This repository contains all materials for the O'Reilly Live Training course "Cu
 ```
 .
 ├── presentation/           # Training presentation slides (Remark.js HTML)
-│   ├── presentation_updated.html    # Main course slides
-│   ├── presentation.html
-│   └── claude-presentation-slides.html
+│   └── presentation_updated.html    # Main course slides
 ├── prompts/
 │   ├── prompt-templates/  # 14 reusable prompt templates
 │   ├── custom-gpt-templates/  # Custom GPT instruction sets
