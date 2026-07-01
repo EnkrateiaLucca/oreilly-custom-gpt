@@ -260,6 +260,6 @@ For questions about the course content or materials, refer to the O'Reilly Live 
 
 ---
 
-**Last Updated**: November 2024
+**Last Updated**: July 2026
 **Course**: Custom GPTs & Claude Artifacts
 **Platform**: O'Reilly Live Training
