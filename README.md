@@ -210,6 +210,8 @@ View the full training presentation by opening `presentation/presentation_update
 - Live demonstration guides
 - Interactive slides
 
+A ready-to-print PDF export is also available at `presentation/presentation_updated.pdf` (one page per slide).
+
 ## Best Practices
 
 ### Prompt Engineering
@@ -238,7 +240,8 @@ View the full training presentation by opening `presentation/presentation_update
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io)
 
 ### Course Materials
-- **Presentation**: `presentation/presentation_updated.html`
+- **Presentation**: `presentation/presentation_updated.html` (PDF export: `presentation/presentation_updated.pdf`)
+- **Cheatsheet**: One-page quick reference — `assets/oreilly-custom-gpt-cheatsheet.html` / `.pdf`
 - **Templates**: Browse `prompts/` directory
 - **Assets**: Visual resources in `assets/`
 

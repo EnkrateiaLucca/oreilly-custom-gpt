@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom GPTs &amp; Claude Artifacts — Cheatsheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 14mm;
+            @top-left { content: none; }
+            @top-center { content: none; }
+            @top-right { content: none; }
+            @bottom-left { content: none; }
+            @bottom-center { content: none; }
+            @bottom-right { content: none; }
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 9.5pt;
+            line-height: 1.45;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 14mm;
+        }
+
+        .page-header {
+            text-align: center;
+            padding-bottom: 10pt;
+            margin-bottom: 12pt;
+            border-bottom: 3px solid #000;
+        }
+
+        .page-header h1 {
+            font-size: 22pt;
+            font-weight: 700;
+            margin-bottom: 4pt;
+            text-transform: uppercase;
+            letter-spacing: 2pt;
+        }
+
+        .page-header .subtitle {
+            font-size: 11pt;
+            color: #333;
+            margin-bottom: 3pt;
+        }
+
+        .page-header .meta {
+            font-size: 8.5pt;
+            color: #666;
+        }
+
+        .section-title {
+            font-size: 11pt;
+            font-weight: 700;
+            margin: 11pt 0 7pt 0;
+            padding: 5pt 9pt;
+            background: #000;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1pt;
+            break-after: avoid;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+            margin-bottom: 9pt;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8pt;
+            margin-bottom: 9pt;
+        }
+
+        .card {
+            border: 2px solid #000;
+            padding: 8pt;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        .card-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            margin-bottom: 5pt;
+            padding-bottom: 4pt;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .card-content {
+            font-size: 8.5pt;
+        }
+
+        .card ul, .card ol {
+            margin-left: 13pt;
+        }
+
+        .card li {
+            margin-bottom: 2pt;
+        }
+
+        .card-light {
+            border: 2px solid #000;
+            background: #f9f9f9;
+            padding: 8pt;
+            break-inside: avoid;
+        }
+
+        .card-accent {
+            border: 2px solid #000;
+            background: #fff;
+            padding: 8pt;
+            break-inside: avoid;
+        }
+
+        .table-card {
+            border: 2px solid #000;
+            background: #fff;
+            padding: 0;
+            break-inside: avoid;
+            margin-bottom: 9pt;
+        }
+
+        .table-card-header {
+            background: #000;
+            color: #fff;
+            padding: 5pt 8pt;
+            font-weight: 700;
+            font-size: 9.5pt;
+        }
+
+        .table-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+        }
+
+        .table-card th {
+            background: #f0f0f0;
+            color: #000;
+            font-weight: 700;
+            text-align: left;
+            padding: 5pt 7pt;
+            border-bottom: 2px solid #000;
+        }
+
+        .table-card td {
+            padding: 4pt 7pt;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+            margin-bottom: 9pt;
+        }
+
+        .comparison-item {
+            border: 2px solid #000;
+            padding: 8pt;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        .comparison-header {
+            font-weight: 700;
+            font-size: 10pt;
+            margin-bottom: 6pt;
+            padding-bottom: 4pt;
+            border-bottom: 2px solid #000;
+            text-align: center;
+        }
+
+        .comparison-item ul {
+            margin-left: 13pt;
+            font-size: 8.5pt;
+        }
+
+        .comparison-item li {
+            margin-bottom: 2pt;
+        }
+
+        .info-box {
+            border: 2px solid #666;
+            border-left: 5px solid #000;
+            padding: 8pt;
+            margin-bottom: 9pt;
+            background: #f5f5f5;
+            break-inside: avoid;
+        }
+
+        .info-box-title {
+            font-weight: 700;
+            font-size: 9.5pt;
+            margin-bottom: 4pt;
+        }
+
+        .info-box p, .info-box ul {
+            font-size: 8.5pt;
+        }
+
+        .info-box ul {
+            margin-left: 13pt;
+        }
+
+        .info-box li {
+            margin-bottom: 2pt;
+        }
+
+        .step-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 7pt;
+            margin-bottom: 9pt;
+        }
+
+        .step {
+            border: 2px solid #000;
+            padding: 7pt;
+            text-align: center;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        .step-number {
+            background: #000;
+            color: #fff;
+            width: 22pt;
+            height: 22pt;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5pt auto;
+            font-weight: 700;
+            font-size: 11pt;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 8.5pt;
+            margin-bottom: 3pt;
+        }
+
+        .step-content {
+            font-size: 8pt;
+        }
+
+        .key-points {
+            border: 3px solid #000;
+            background: #f9f9f9;
+            padding: 10pt;
+            margin-bottom: 9pt;
+            break-inside: avoid;
+        }
+
+        .key-points-title {
+            font-weight: 700;
+            font-size: 10pt;
+            margin-bottom: 7pt;
+            text-transform: uppercase;
+        }
+
+        .key-points ul {
+            margin-left: 13pt;
+            font-size: 8.5pt;
+        }
+
+        .key-points li {
+            margin-bottom: 3pt;
+        }
+
+        .code-inline {
+            font-family: 'Courier New', monospace;
+            font-size: 8pt;
+            background: #f0f0f0;
+            padding: 1pt 3pt;
+            border: 1px solid #ccc;
+        }
+
+        footer {
+            margin-top: 12pt;
+            padding-top: 7pt;
+            border-top: 2px solid #000;
+            text-align: center;
+            font-size: 7.5pt;
+            color: #666;
+        }
+
+        @media print {
+            body { margin: 0; padding: 14mm; }
+
+            .card, .card-light, .card-accent, .info-box,
+            .table-card, .comparison-item, .key-points, .step {
+                break-inside: avoid;
+            }
+
+            .section-title { break-after: avoid; }
+
+            a { text-decoration: none; color: #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Custom GPTs &amp; Claude Artifacts</h1>
+        <div class="subtitle">O'Reilly Live Training — No-code AI Tools Cheatsheet</div>
+        <div class="meta">Custom GPTs · Claude Artifacts · Claude Desktop MCPs · 15 Prompt Templates · Claude vs ChatGPT</div>
+    </div>
+
+    <!-- SECTION 1: Custom GPTs -->
+    <div class="section-title">1. Custom GPTs — What &amp; Why</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">4 Custom GPT Use Cases</div>
+            <div class="card-content">
+                <ul>
+                    <li><strong>Translators of Complexity</strong> — simplify domain knowledge for non-experts</li>
+                    <li><strong>Tools</strong> — automate repetitive tasks (extraction, formatting, scheduling)</li>
+                    <li><strong>Agents</strong> — autonomous task execution with minimal supervision</li>
+                    <li><strong>Collaborators</strong> — work alongside you as dedicated thought partners</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">When to Build a Custom GPT</div>
+            <div class="card-content">
+                <ul>
+                    <li>Writing too many edits to system messages</li>
+                    <li>Complex tasks need multiple specialized prompts</li>
+                    <li>Need consistent behavior across sessions</li>
+                    <li>Require specialized domain knowledge grounded</li>
+                    <li><strong>Tip:</strong> Search GPT store first; build only for unique needs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Custom GPT Builder Steps</div>
+
+    <div class="step-container">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">Create</div>
+            <div class="step-content">chatgpt.com/gpts → Create</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">Name &amp; Describe</div>
+            <div class="step-content">Set name + short description</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">Instructions</div>
+            <div class="step-content">Role · Rules · Output format</div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-title">Knowledge</div>
+            <div class="step-content">Upload PDF, DOCX, TXT files</div>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step">
+            <div class="step-number">5</div>
+            <div class="step-title">Capabilities</div>
+            <div class="step-content">Web · DALL·E · Code Interpreter</div>
+        </div>
+        <div class="step">
+            <div class="step-number">6</div>
+            <div class="step-title">Actions</div>
+            <div class="step-content">External APIs via OpenAPI schema</div>
+        </div>
+        <div class="step">
+            <div class="step-number">7</div>
+            <div class="step-title">Test</div>
+            <div class="step-content">Preview panel — iterate &amp; refine</div>
+        </div>
+        <div class="step">
+            <div class="step-number">8</div>
+            <div class="step-title">Save &amp; Share</div>
+            <div class="step-content">Publish to GPT Store or share link</div>
+        </div>
+    </div>
+
+    <!-- Custom GPT Examples -->
+    <div class="section-title">Custom GPT Examples</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">Italian Tutor</div>
+            <div class="card-content">
+                <p style="margin-bottom:4pt;">Simulates a 20-year-experience Italian tutor for translation and conversation practice.</p>
+                <ul>
+                    <li><strong>Translation mode:</strong> Italian text + contextual explanation</li>
+                    <li><strong>Scenario mode:</strong> Italian description + English prompt for user response</li>
+                    <li><strong>Feedback:</strong> Short response critique after each user attempt</li>
+                    <li><strong>Knowledge:</strong> Uploaded PDF grounds scenarios to course material</li>
+                    <li><strong>Instructions structure:</strong> ROLE → PROCESS → LIMITATIONS → OUTPUT CONSTRAINTS → EXAMPLES</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Data Extractor</div>
+            <div class="card-content">
+                <p style="margin-bottom:4pt;">Medical research paper extraction engine — turns PDFs into structured tables.</p>
+                <ul>
+                    <li><strong>Step 1:</strong> User uploads PDF + extraction instructions</li>
+                    <li><strong>Step 2:</strong> GPT confirms column structure: <em>Title | Author | …</em></li>
+                    <li><strong>Step 3:</strong> On confirmation, extract data into copy-ready table</li>
+                    <li><strong>Fallback:</strong> Outputs "Can't extract data requested" if unavailable</li>
+                    <li><strong>Instructions structure:</strong> ROLE → PROCESS (3 steps) → OUTPUT CONSTRAINTS → LIMITATIONS</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Claude Artifacts -->
+    <div class="section-title">2. Claude Artifacts</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">5 Artifact Content Types</div>
+            <div class="card-content">
+                <ul>
+                    <li><strong>Documents</strong> — Markdown, Plain Text (reports, notes)</li>
+                    <li><strong>Code snippets</strong> — Python, JS, SQL, and more</li>
+                    <li><strong>Websites</strong> — single-page HTML apps (interactive, shareable)</li>
+                    <li><strong>SVG images &amp; diagrams</strong> — charts, flowcharts, logos</li>
+                    <li><strong>Interactive React</strong> — buttons, forms, data visualizations</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Artifact Features</div>
+            <div class="card-content">
+                <ul>
+                    <li>Dedicated preview window alongside chat</li>
+                    <li>Fully interactive and editable inline</li>
+                    <li>Version history — iterate without losing prior versions</li>
+                    <li>Export and sharing capabilities</li>
+                    <li>Save to Claude Projects for organization</li>
+                    <li>Collaborative editing</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison-grid">
+        <div class="comparison-item">
+            <div class="comparison-header">Regular Chat</div>
+            <ul>
+                <li>Inline text in the conversation</li>
+                <li>Primarily text-based output</li>
+                <li>Static, non-editable</li>
+                <li>Best for shorter content</li>
+                <li>Limited visualization</li>
+                <li>No version history</li>
+            </ul>
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-header">Artifacts</div>
+            <ul>
+                <li>Dedicated preview window</li>
+                <li>Multiple output formats</li>
+                <li>Fully editable inline</li>
+                <li>Best for substantial content (&gt;15 lines)</li>
+                <li>Rich visualization (React, SVG, HTML)</li>
+                <li>Full version history</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <div class="info-box-title">Claude Artifact Example — Data Visualizer</div>
+        <p>Single HTML/JS app that takes JSON or CSV data and produces interactive charts (bar, line, scatter, etc.) with an <strong>"AI Data Generate"</strong> button that calls Claude API to create synthetic data. Built with a single Claude prompt requesting a self-contained single-page application.</p>
+    </div>
+
+    <!-- SECTION 3: Claude Desktop + MCPs -->
+    <div class="section-title">3. Claude Desktop + MCPs (Model Context Protocol)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">What MCPs Add to Claude</div>
+            <div class="card-content">
+                <ul>
+                    <li>Open standard by Anthropic for AI-to-tool connections</li>
+                    <li>Access to local <strong>file system</strong> (read/write files)</li>
+                    <li>Connect to <strong>databases</strong> — query and write data</li>
+                    <li>Connect to <strong>external APIs</strong> (GitHub, Slack, calendars)</li>
+                    <li>Control <strong>web browsers</strong> and apps</li>
+                    <li>Enables fully personal AI assistants</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">MCP Setup (Claude Desktop)</div>
+            <div class="card-content">
+                <ol style="margin-left:13pt;">
+                    <li>Install Claude Desktop app (claude.ai/download)</li>
+                    <li>Edit <code class="code-inline">claude_desktop_config.json</code></li>
+                    <li>Add MCP server entries with command + args</li>
+                    <li>Restart Claude Desktop</li>
+                    <li>Verify tools appear in conversation UI</li>
+                </ol>
+                <p style="margin-top:5pt;font-size:8pt;"><strong>Key MCPs:</strong> filesystem · browser · GitHub · Slack · databases</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: Prompt Templates -->
+    <div class="section-title">4. Prompt Templates — 15 Reusable Templates</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">Template Variable Syntax</div>
+            <div class="card-content">
+                <ul>
+                    <li><code class="code-inline">{VARIABLE_NAME}</code> — simple placeholder; replace with your value</li>
+                    <li><code class="code-inline">{VAR|opt1,opt2,opt3}</code> — multi-option; choose one or use your own</li>
+                    <li><code class="code-inline">{VAR|description}</code> — single hint/example of what to provide</li>
+                </ul>
+                <p style="margin-top:5pt;"><strong>Example:</strong> <code class="code-inline">{FORMAT|PDF,HTML,DOCX}</code> → pick "PDF" or write "LaTeX"</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">How to Use a Template (4 Steps)</div>
+            <div class="card-content">
+                <ol style="margin-left:13pt;">
+                    <li>Choose template from <code class="code-inline">prompts/prompt-templates/</code></li>
+                    <li>Scan for all <code class="code-inline">{VARIABLE}</code> placeholders</li>
+                    <li>Replace each with your specific value</li>
+                    <li>Customize further — templates are starting points, not rigid rules</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">15 Templates by Category</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Templates (3 shown per row)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Creative &amp; Design</strong> (3)</td>
+                    <td>create-brand-assets · create-custom-webpage · turn-inspiration-to-design-plans</td>
+                </tr>
+                <tr>
+                    <td><strong>Content Creation</strong> (3)</td>
+                    <td>create-company-newsletter · create-digital-recipe-cards · create-custom-course-materials</td>
+                </tr>
+                <tr>
+                    <td><strong>Business &amp; Productivity</strong> (3)</td>
+                    <td>create-sales-reports · create-interactive-pdf-forms · create-a-process-flowchart</td>
+                </tr>
+                <tr>
+                    <td><strong>Research &amp; Analysis</strong> (4)</td>
+                    <td>research-data-analysis · plan-literature-review · turn-text-threads-to-researched-notes · turn-research-into-presentations</td>
+                </tr>
+                <tr>
+                    <td><strong>Travel &amp; Planning</strong> (2)</td>
+                    <td>compare-travel-destinations · create-daily-travel-itinerary</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-box">
+        <div class="info-box-title">Prompt Engineering Best Practices</div>
+        <ul>
+            <li><strong>Structure:</strong> Role + Context + Task + Format — the 4 elements of a strong prompt</li>
+            <li><strong>Few-shot:</strong> Include 1–3 input/output examples to guide the AI's style</li>
+            <li><strong>Chain prompts:</strong> Break complex work into multi-step prompt sequences</li>
+            <li><strong>Iterate:</strong> AI assistants are forgiving — start simple and refine based on output</li>
+            <li><strong>Combine:</strong> Mix elements from multiple templates for hybrid use cases</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 5: Claude vs ChatGPT -->
+    <div class="section-title">5. Claude vs ChatGPT — Key Differences</div>
+
+    <div class="table-card">
+        <div class="table-card-header">Quick Comparison</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Claude (Anthropic)</th>
+                    <th>ChatGPT (OpenAI)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Context Window</strong></td>
+                    <td>✅ 200K standard · 1M-token beta</td>
+                    <td>Up to 400K tokens (API)</td>
+                </tr>
+                <tr>
+                    <td><strong>Image Generation</strong></td>
+                    <td>❌ No native image gen</td>
+                    <td>✅ gpt-image-2 (DALL·E retired)</td>
+                </tr>
+                <tr>
+                    <td><strong>Voice</strong></td>
+                    <td>Basic (mobile beta, English only)</td>
+                    <td>✅ Advanced Voice Mode + video/screen share</td>
+                </tr>
+                <tr>
+                    <td><strong>Default Model</strong></td>
+                    <td>Sonnet 5 (balanced everyday default)</td>
+                    <td>GPT-5.5 Instant</td>
+                </tr>
+                <tr>
+                    <td><strong>Custom AI Configs</strong></td>
+                    <td>Projects + system prompts</td>
+                    <td>✅ Custom GPTs (full builder + GPT Store)</td>
+                </tr>
+                <tr>
+                    <td><strong>Interactive Output</strong></td>
+                    <td>✅ Artifacts (HTML, React, SVG, code)</td>
+                    <td>Canvas (code + writing editor)</td>
+                </tr>
+                <tr>
+                    <td><strong>Coding</strong></td>
+                    <td>✅ Claude Code + Opus 4.8</td>
+                    <td>Canvas + GPT-5.5 Instant</td>
+                </tr>
+                <tr>
+                    <td><strong>Computer Control</strong></td>
+                    <td>Computer Use (API beta)</td>
+                    <td>✅ Operator agent</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-title">Claude Models (mid-2026)</div>
+            <div class="card-content">
+                <p><strong>Fable 5:</strong> frontier / most-capable tier</p>
+                <p style="margin-top:3pt;"><strong>Opus 4.8:</strong> deep reasoning + agentic coding</p>
+                <p style="margin-top:3pt;"><strong>Sonnet 5:</strong> balanced everyday default</p>
+                <p style="margin-top:3pt;"><strong>Haiku 4.5:</strong> fast, budget-friendly</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">ChatGPT Models (mid-2026)</div>
+            <div class="card-content">
+                <p><strong>GPT-5.5 Instant:</strong> current default model</p>
+                <p style="margin-top:3pt;"><strong>GPT-5.6</strong> (Sol / Terra / Luna): limited preview, not yet GA</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Pricing &amp; Quotas</div>
+            <div class="card-content">
+                <p>Plan names, prices, and message quotas change frequently — verify each vendor's current pricing page before relying on specifics in class.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6: Decision Framework -->
+    <div class="section-title">6. Decision Framework — Which Tool for What?</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">Custom GPTs vs. Claude Artifacts</div>
+            <div class="card-content">
+                <ul>
+                    <li><strong>Custom GPT:</strong> Persistent specialized ChatGPT config; saves instructions + knowledge files for reuse across sessions</li>
+                    <li><strong>Artifact:</strong> Claude's dedicated output window for substantial, interactive, shareable content in a single session</li>
+                    <li>Use Custom GPT when you need a <em>deployable tool</em> others can use</li>
+                    <li>Use Artifacts when you need <em>interactive output</em> to iterate on in-session</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Choose Your Path</div>
+            <div class="card-content">
+                <ul>
+                    <li>Need consistent ChatGPT behavior + domain knowledge? → <strong>Custom GPT</strong></li>
+                    <li>Need interactive/shareable Claude output (app, chart, doc)? → <strong>Artifact</strong></li>
+                    <li>Need Claude to access files, apps, or APIs? → <strong>Claude Desktop + MCP</strong></li>
+                    <li>Need a reusable prompt structure anyone can fill in? → <strong>Prompt Template</strong></li>
+                    <li>Need long-document analysis (&gt;100K tokens)? → <strong>Claude</strong> (200K–1M context)</li>
+                    <li>Need image generation built-in? → <strong>ChatGPT</strong> (gpt-image-2)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="key-points">
+        <div class="key-points-title">Key Takeaways</div>
+        <ul>
+            <li><strong>Custom GPTs:</strong> Build specialized ChatGPT configurations with role, rules, knowledge files, and API actions — reusable by anyone</li>
+            <li><strong>Claude Artifacts:</strong> Get interactive, editable outputs (HTML apps, React, SVG, code) with version history and sharing built in</li>
+            <li><strong>Claude Desktop + MCPs:</strong> Connect Claude to your local files, databases, and APIs to build a personal AI assistant</li>
+            <li><strong>Prompt Templates:</strong> Use <code class="code-inline">{VARIABLE}</code> syntax for reusable, customizable prompts across 5 domains (15 templates total)</li>
+            <li><strong>Platform choice:</strong> Claude wins on context length + coding; ChatGPT wins on image gen + voice — both excel at core AI tasks</li>
+            <li><strong>Iteration is key:</strong> AI assistants are forgiving — start simple, use templates as starting points, and refine based on output</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2026 Automata Learning Lab | Custom GPTs &amp; Claude Artifacts — O'Reilly Live Training | github.com/AutomataLearningLab</p>
+    </footer>
+
+</body>
+</html>
