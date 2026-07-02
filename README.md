@@ -21,7 +21,7 @@ This repository contains all materials for the O'Reilly Live Training course "Cu
 ├── presentation/           # Training presentation slides (Remark.js HTML)
 │   └── presentation_updated.html    # Main course slides
 ├── prompts/
-│   ├── prompt-templates/  # 14 reusable prompt templates
+│   ├── prompt-templates/  # 15 reusable prompt templates
 │   ├── custom-gpt-templates/  # Custom GPT instruction sets
 │   └── claude-artifacts/  # Claude Artifact examples
 ├── assets/                # Images and visual resources for presentations
@@ -67,7 +67,7 @@ This repository contains all materials for the O'Reilly Live Training course "Cu
 - Building personal assistants with external tool access
 - Advanced workflow automation
 
-## Prompt Templates (14 Templates)
+## Prompt Templates (15 Templates)
 
 The `prompts/prompt-templates/` directory contains professionally crafted, reusable templates for common tasks:
 
