@@ -47,12 +47,12 @@ class HouseUpdate(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 def customer_page(request: Request):
-    return templates.TemplateResponse("customer.html", {"request": request})
+    return templates.TemplateResponse(request, "customer.html")
 
 
 @app.get("/agent", response_class=HTMLResponse)
 def agent_page(request: Request):
-    return templates.TemplateResponse("agent.html", {"request": request})
+    return templates.TemplateResponse(request, "agent.html")
 
 
 # ─── API Endpoints ────────────────────────────────────────

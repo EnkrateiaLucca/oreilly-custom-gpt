@@ -19,11 +19,9 @@ This repository contains all materials for the O'Reilly Live Training course "Cu
 ```
 .
 ├── presentation/           # Training presentation slides (Remark.js HTML)
-│   ├── presentation_updated.html    # Main course slides
-│   ├── presentation.html
-│   └── claude-presentation-slides.html
+│   └── presentation_updated.html    # Main course slides
 ├── prompts/
-│   ├── prompt-templates/  # 14 reusable prompt templates
+│   ├── prompt-templates/  # 15 reusable prompt templates
 │   ├── custom-gpt-templates/  # Custom GPT instruction sets
 │   └── claude-artifacts/  # Claude Artifact examples
 ├── assets/                # Images and visual resources for presentations
@@ -69,7 +67,7 @@ This repository contains all materials for the O'Reilly Live Training course "Cu
 - Building personal assistants with external tool access
 - Advanced workflow automation
 
-## Prompt Templates (14 Templates)
+## Prompt Templates (15 Templates)
 
 The `prompts/prompt-templates/` directory contains professionally crafted, reusable templates for common tasks:
 
@@ -212,6 +210,8 @@ View the full training presentation by opening `presentation/presentation_update
 - Live demonstration guides
 - Interactive slides
 
+A ready-to-print PDF export is also available at `presentation/presentation_updated.pdf` (one page per slide).
+
 ## Best Practices
 
 ### Prompt Engineering
@@ -240,7 +240,8 @@ View the full training presentation by opening `presentation/presentation_update
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io)
 
 ### Course Materials
-- **Presentation**: `presentation/presentation_updated.html`
+- **Presentation**: `presentation/presentation_updated.html` (PDF export: `presentation/presentation_updated.pdf`)
+- **Cheatsheet**: One-page quick reference — `assets/oreilly-custom-gpt-cheatsheet.html` / `.pdf`
 - **Templates**: Browse `prompts/` directory
 - **Assets**: Visual resources in `assets/`
 
@@ -262,6 +263,6 @@ For questions about the course content or materials, refer to the O'Reilly Live 
 
 ---
 
-**Last Updated**: November 2024
+**Last Updated**: July 2026
 **Course**: Custom GPTs & Claude Artifacts
 **Platform**: O'Reilly Live Training
